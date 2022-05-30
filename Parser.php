@@ -28,4 +28,5 @@ class Parser {
       $sth->execute($row);
     }
   }
+  
 }

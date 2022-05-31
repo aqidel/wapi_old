@@ -1,6 +1,6 @@
 <?php
 
-return $patterns = [
+return [
   "/\/main/",
   "/\/api\/characters\/\d/",
   "/\/api\/characters/",

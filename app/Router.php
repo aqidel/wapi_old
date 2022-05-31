@@ -2,17 +2,19 @@
 
 class Router {
 
-  public $patterns;
-  public $url;
+  public $routes;
+  public $api;
 
   function __construct($url) {
-    $this->url = $url;
-    $this->patterns = include './patterns.php';
+    $this->routes = require 'app/routes.php';
+    $this->api = new API();
+    $this->url_match($url);
   }
 
-  public function url_match() {
-    foreach($this->patterns as $pattern) {
-      if(preg_match($pattern, $this->url)) {
+  public function url_match($url) {
+    foreach($this->routes as $route) {
+      if(preg_match($route, $url)) {
+        $this->api->checkout();
         return;
       }
     }

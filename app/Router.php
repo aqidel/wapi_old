@@ -1,20 +1,22 @@
 <?php
 
+namespace app;
+
 class Router {
 
   public $routes;
-  public $api;
+  public $app;
 
   function __construct($url) {
-    $this->routes = require 'app/routes.php';
-    $this->api = new API();
+    $this->routes = require './app/config/routes.php';
+    $this->app = new App();
     $this->url_match($url);
   }
 
   public function url_match($url) {
     foreach($this->routes as $route) {
       if(preg_match($route, $url)) {
-        $this->api->checkout();
+        $this->app->checkout();
         return;
       }
     }

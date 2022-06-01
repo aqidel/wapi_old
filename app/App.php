@@ -1,6 +1,8 @@
 <?php
 
-class API {
+namespace app;
+
+class App {
 
   function __construct() {
     //

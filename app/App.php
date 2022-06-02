@@ -9,7 +9,7 @@ class App {
   }
 
   public function checkout() {
-    echo 'I am running!';
+    //
   }
 
 }

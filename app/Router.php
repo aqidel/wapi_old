@@ -16,11 +16,11 @@ class Router {
   public function url_match($url) {
     foreach($this->routes as $route) {
       if(preg_match($route, $url)) {
-        $this->app->checkout();
+        $this->app->get_data($url);
         return;
       }
     }
-    echo 'URL is not found!';
+    $this->app->get_view($url);
   }
 
 }

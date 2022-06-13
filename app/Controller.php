@@ -30,6 +30,7 @@ class Controller {
     $model_method = 'get_' . $url['path'];
     $this->data = $this->model->$model_method($query);
     $this->clear_data();
+    $this->to_json();
   }
 
   public function clear_data() {
@@ -63,6 +64,12 @@ class Controller {
       }
     }
     return $merged_arr;
+  }
+
+  public function to_json() {
+    $json = json_encode($this->data);
+    header('Content-Type: application/json');
+    echo $json;
   }
 
   public function error_404() {

@@ -16,7 +16,8 @@ class Parser {
     array_splice($rows, 0, 1);
     // Convert row-strings to array-strings
     foreach($rows as $key => $row) {
-      $rows[$key] = explode(',', $row);
+      $no_spec_chars = preg_replace("!\r?\n!", "", $row);
+      $rows[$key] = explode(',', $no_spec_chars);
     }
     return $rows;
   }
@@ -30,3 +31,5 @@ class Parser {
   }
   
 }
+
+$parser = new Parser('professions');

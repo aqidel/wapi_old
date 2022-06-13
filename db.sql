@@ -33,8 +33,8 @@ CREATE TABLE cities (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE city_country (
-  city_id int NOT NULL,
+CREATE TABLE country_city (
   country_id int NOT NULL,
-  PRIMARY KEY (city_id,country_id)
+  city_id int NOT NULL,
+  PRIMARY KEY (country_id, city_id)
 );

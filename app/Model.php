@@ -47,13 +47,13 @@ class Model {
 
   public function get_countries($query) {
     if($query[0] == 'id') {
-      $sql = "SELECT countries.*, cities.city FROM countries INNER JOIN city_country ON countries.id = city_country.country_id INNER JOIN cities ON cities.id = city_country.city_id WHERE countries.id = " . $query[1];
+      $sql = "SELECT countries.*, cities.city FROM countries INNER JOIN country_city ON countries.id = country_city.country_id INNER JOIN cities ON cities.id = country_city.city_id WHERE countries.id = " . $query[1];
     }
     else if($query[0] == 'limit') {
-      $sql = "SELECT countries.*, cities.city FROM countries INNER JOIN city_country ON countries.id = city_country.country_id INNER JOIN cities ON cities.id = city_country.city_id LIMIT " . $query[1];
+      $sql = "SELECT countries.*, cities.city FROM countries INNER JOIN country_city ON countries.id = country_city.country_id INNER JOIN cities ON cities.id = country_city.city_id LIMIT " . $query[1];
     }
     else {
-      $sql = "SELECT countries.*, cities.city FROM countries INNER JOIN city_country ON countries.id = city_country.country_id INNER JOIN cities ON cities.id = city_country.city_id";
+      $sql = "SELECT countries.*, cities.city FROM countries INNER JOIN country_city ON countries.id = country_city.country_id INNER JOIN cities ON cities.id = country_city.city_id";
     }
     return $this->db_call($sql);
   }

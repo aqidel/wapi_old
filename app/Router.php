@@ -4,10 +4,13 @@ namespace app;
 
 class Router {
 
+  public $view;
   public $routes;
   public $controller;
 
   function __construct($url) {
+
+    $this->view = new View();
 
     $this->routes = require './app/config/routes.php';
 
@@ -31,7 +34,7 @@ class Router {
 
     }
 
-    $this->controller->error_404();
+    $this->view->error(404, 'No such URL exists!');
     
   }
 

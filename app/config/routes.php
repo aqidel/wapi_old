@@ -13,9 +13,11 @@
 */
 
 return [
+
   "/^\/$/",
   "/^\/api\/characters(\?(id=|limit=)([1-9][0-9]*))?$/",
   "/^\/api\/countries(\?(id=|limit=)([1-9][0-9]*))?$/",
   "/^\/api\/cities(\?(id=|limit=)([1-9][0-9]*))?$/",
   "/^\/api\/professions(\?(id=|limit=)([1-9][0-9]*))?$/",
+  
 ];

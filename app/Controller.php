@@ -4,10 +4,13 @@ namespace app;
 
 class Controller {
 
+  public $view;
   public $model;
   public $data;
 
   function __construct() {
+
+    $this->view = new View();
 
     $this->model = new Model();
 
@@ -15,19 +18,27 @@ class Controller {
 
   public function url_parser($url) {
 
-    $url = str_replace('/api/', '', $url);
+    if ($url == '/') {
 
-    $url = parse_url($url);
+      $this->view->to_homepage();
 
-    if ($url['query']) {
+    } else {
 
-      $query = explode('=', $url['query']);
+      $url = str_replace('/api/', '', $url);
+
+      $url = parse_url($url);
+
+      if (isset($url['query'])) {
+
+        $query = explode('=', $url['query']);
+
+      }
+
+      $json = $this->get_json($url, $query);
+
+      $this->send_response($json);
 
     }
-
-    $json = $this->get_json($url, $query);
-
-    $this->send_response($json);
 
   }
 
@@ -130,12 +141,6 @@ class Controller {
 
     echo $json;
 
-  }
-
-  public function error_404() {
-
-    echo '404 Error';
-    
   }
    
 }

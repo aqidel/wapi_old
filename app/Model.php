@@ -18,17 +18,7 @@ class Model {
 
     try {
 
-      $db = new PDO("mysql:dbname=" . $admin['dbname'] . ";host=" . $admin['host'], $admin['user'], $admin['password']);
-
-      if (!$db) {
-
-        throw new Exception();
-
-      } else {
-
-        $this->db = $db;
-
-      }
+      $this->db = new PDO("mysql:dbname=" . $admin['dbname'] . ";host=" . $admin['host'], $admin['user'], $admin['password']);
 
     } catch (Exception $e) {
 
@@ -46,7 +36,17 @@ class Model {
 
     $sth->execute();
 
-    return $sth->fetchAll(PDO::FETCH_ASSOC);
+    $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+    if (count($result) == 0) {
+
+      $this->view->error(500, 'There is no such element in database!');
+
+      die();
+
+    }
+
+    return $result;
 
   }
 

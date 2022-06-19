@@ -32,9 +32,13 @@ class Controller {
 
         $query = explode('=', $url['query']);
 
-      }
+        $json = $this->get_json($url, $query);
 
-      $json = $this->get_json($url, $query);
+      } else {
+
+        $json = $this->get_json($url);
+
+      }
 
       $this->send_response($json);
 
@@ -44,13 +48,17 @@ class Controller {
 
   // Gets raw data from model based on URL and processes it to JSON format
 
-  public function get_json($url, $query) {
+  public function get_json($url, $query = []) {
 
     $model_method = 'get_' . $url['path'];
 
     $this->data = $this->model->$model_method($query);
 
-    $this->clear_data();
+    if (count($this->data) > 1) {
+
+      $this->clear_data();
+
+    }
 
     $json = json_encode($this->data);
 
@@ -66,7 +74,7 @@ class Controller {
 
       // Detection of sub-arrays with same ID's
 
-      if ($value['id'] == $this->data[$key + 1]['id']) {
+      if (isset($this->data[$key + 1]) && $value['id'] == $this->data[$key + 1]['id']) {
 
         // Temporary array with all elements with same ID for further joining
 
@@ -79,6 +87,10 @@ class Controller {
         // Just push it to main array...
 
         array_push($this->data, $merged_arr);
+
+        // Continue with updated data
+
+        $this->clear_data();
 
       }
 
@@ -117,7 +129,7 @@ class Controller {
     $merged_arr = array_merge_recursive(...$same_id_arr);
 
     foreach ($merged_arr as $key => $value) {
-
+      
       // Because array_merge_recursive() returns an array filled with sub-arrays, clear it where necessary
 
       $uniq_val = array_unique($value);
